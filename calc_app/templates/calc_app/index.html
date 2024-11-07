@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+
+    <head>
+      {% load static %}
+      <link rel="stylesheet" href="{% static 'calc_app/css/styles.css' %}" />
+  </head>
+  
+      <link rel="stylesheet" href="{% static 'calc_app/css/styles.css' %}" />
+
+    <title>Calculadora de Carbono</title>
+</head>
+<body>
+    <div class="container">
+        <div class="calculadora">
+            <h1>Calculadora de Carbono</h1>
+            <form class="formulario" id="carbono-form" method="post">
+                {% csrf_token %}
+                <label for="carro">Quanto você anda de carro por dia (em km):</label>
+                <input type="number" name="carro" required placeholder="Km por dia" />
+
+                <label for="frequencia">Quantas vezes por semana você usa o carro?</label>
+                <input type="number" name="frequencia" required placeholder="Vezes por semana" />
+
+                <label for="combustivel">Tipo de combustível:</label>
+                <select name="combustivel" required>
+                    <option value="">Selecione</option>
+                    <option value="gasolina">Gasolina</option>
+                    <option value="etanol">Etanol</option>
+                    <option value="diesel">Diesel</option>
+                    <option value="eletrico">Elétrico</option>
+                </select>
+
+                <button type="submit">Calcular Emissões</button>
+            </form>
+
+            <div id="resultado" class="resultado" style="display: {% if resultado %}block{% else %}none{% endif %};">
+                <h2>Resultado:</h2>
+                {% if resultado %}
+                    <p>Emissão diária: <strong>{{ resultado.emissao_diaria }} kg CO2</strong></p>
+                    <p>Emissão semanal: <strong>{{ resultado.emissao_semanal }} kg CO2</strong></p>
+                    <p>Emissão mensal: <strong>{{ resultado.emissao_mensal }} kg CO2</strong></p>
+                {% else %}
+                    <p>Combustível inválido ou não informado.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'calc_app/js/scripts.js' %}"></script>
+</body>
+</html>
